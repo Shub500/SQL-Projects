@@ -1,0 +1,39 @@
+Database Application Modeling for Soccer Players and Relational Algebra Excersises
+
+Part 1
+Player (Name, Age, countryName)
+Country (Name, confederationName)
+ConFed (Name, President)
+Club (Name,  countryName, clubPresident) // since Club is a weak entity the key for this table also includes references to the key in Country table 
+InClub (playerName, clubName, clubCountryName) // all three columns required to represent a unique entity
+
+Part 2
+ 
+A+ → A
+B+ → B
+C+ → C x D x A  - translates to C→C, C→D, C→A 
+D+ → D x A - translates to D → D, D→A
+// from the given FDs only this new FD is non-trivial since the other derived FD’s are already given
+Answer: C→A 
+
+
+A+ → A
+B+ → B
+C+ → CDA
+D+ → DA
+AB+ →  ABCD
+AC+ →  CDA
+AD+ → DA
+BC+ → ABCD
+BD+ → ABD
+CD+ → ACD
+Answer: AB, BC  are minimal attributes that cover all relations so they are the keys
+Answer: ABC, ABD, BCD, ABCD // these are set of attributes that cover the relations but they are not minimal so they are superkeys
+
+Part 3
+C→D , D→A, C→A // while considering the relations ABCD, AB is the key but from C → D, D->A, and C->A are not the keys for relation ABCD so they violate BCNF 
+ // for relation ABCD, AB is key but C->D is not so we split ABCD into CDA (corresponding to C+) and BC. In CDA, D→A is not a key so we again split to get CD and DA. Now all FD relationships are keys. To check the AB→C FD is okay since AB are not together, C→D is okay since they are together, D→A is okay since they are together, and C→A is okay since CA is not together.
+	Answer: BC
+ CD
+ DA
+
