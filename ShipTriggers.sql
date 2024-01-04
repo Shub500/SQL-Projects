@@ -84,7 +84,7 @@ Where CO1.ship = CO2.ship AND CO1.date > CO2.date AND CO2.result = 'sunk'
 				(SELECT * FROM OldStuff)
 		END;
 
-		CREATE TRIGGER LogicOutcomesInsertV
+CREATE TRIGGER LogicOutcomesInsertV
 AFTER INSERT ON Outcomes
 REFERENCING 
 	NEW TABLE AS NewStuff
