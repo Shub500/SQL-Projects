@@ -1,0 +1,112 @@
+The Relational Model
+
+πclass,country(σbore>=16(Classes))
+
+Result: 
+class
+country
+Iowa
+USA
+North Carolina
+USA
+Yamato
+Japan
+
+
+πname(σlaunched<1921(Ships))
+Result:
+name
+Haruna
+Hiei
+Kirishima
+Kongo
+Ramillies
+Renown
+Repulse
+Resolution
+Revenge
+Royal Oak
+Royal Sovereign
+Tennessee
+
+
+πship(σbattle = ‘Denmark Strait’ AND  result = ‘sunk’ (Outcomes))
+Result:
+ship
+Bismark
+Hood
+
+
+πname(σlaunched>1921 AND displacement > 35000 (Classes ⋈ Ships))
+Result:
+name
+Iowa
+Missouri
+Musashi
+New Jersey
+North Carolina
+Washington
+Wisconsin
+Yamato
+
+
+πname, numGuns, displacement(σbattle = ‘Guadalcanal’ (Outcomes ⋈Ships.name = Outcomes.ship Ships ⋈ Classes))
+Result: 
+name
+numGuns
+displacement
+Kirishima
+8
+32000
+Washington
+9
+37000
+
+
+(ρS(shipName)(πship(Outcomes))) U (ρS(shipName)(πname(Ships)))
+Result:
+shipName
+Arizona
+Bismark
+California
+Duke of York
+Fuso
+Hood
+King George V
+Kirishima
+Prince of Wales
+Rodney
+Scharnhorst
+South Dakota
+Tennessee
+Washington
+West Virginia
+Yamashiro
+Haruna
+Hiei
+Iowa
+Kongo
+Missouri
+Musashi
+New Jersey
+North Carolina
+Ramillies
+Renown
+Repulse
+Resolution
+Revenge
+Royal Oak
+Royal Sovereign
+Wisconsin
+Yamato
+
+
+copyShips(name2, class2, launched2) := ρS(copy)(Ships)
+	joinShips (name, class, launched, name2, class2, launched2) :=  (Ships ⋈  copyShips)
+	forDuplicateFilter (name, class, launched) := πname, class, launched(σname = name2 AND class = class2 AND launched = launched2(joinShips))
+Answer(class) := π class (Ships - forDuplicateFilter)
+	Result:
+classes
+
+
+
